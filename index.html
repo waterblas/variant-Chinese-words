@@ -6,16 +6,23 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="js/gui.js"></script>
 </head>
 <body>
 <div class="container">
+
+  <div class="alert alert-warning" role="alert" style="display:none;">
+    <strong>Warning!</strong>
+    <span></span>
+  </div>
+
+
   <div class = "floatInputDom" style = "margin-top:40%;">
     <div class = "row" style = "margin-top:15px;">
       <div class="has-success input-group input-group-lg col-xs-6 col-xs-offset-3">
-        <input type="text" class="form-control" placeholder="Search for...">
+        <input type="text" class="form-control" placeholder="Search for..." name="ChineseWords">
         <span class="input-group-btn">
-          <button class="btn btn-info" type="button">搜索
+          <button class="btn btn-info" type="button" id="searchBtn">搜索
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
         </span>
@@ -25,13 +32,13 @@
       <div class = "has-warning col-xs-6">
         <div class = "pull-right">
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox1" value="option1"> 形近字
+            <input type="checkbox" id="inlineCheckbox1" name="checkbox" value="option1" checked="true"> 形近字
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox2" value="option2"> 同音字
+            <input type="checkbox" id="inlineCheckbox2" name="checkbox" value="option2" checked="true"> 同音字
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox3" value="option3"> 拆分字
+            <input type="checkbox" id="inlineCheckbox3" name="checkbox" value="option3" checked="true"> 拆分字
           </label> 
           <p class="help-block">请选择搜索变体词的的范围</p>  
         </div> 
