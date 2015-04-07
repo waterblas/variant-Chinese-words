@@ -11,8 +11,8 @@ $().ready(function(){
 					   // 设置目标区域
 					if(!_con.is(e.target)){
 						eventFunc(); 
-					}}
-				)
+					}
+				})
 			}
 		}
 	}
@@ -23,7 +23,15 @@ $().ready(function(){
 			oneDOMon(document, function(){ 
 				$(".alert-warning").hide();
 			}).oneBind();
+		},
+		mustChose: function(){
+			$(".alert-warning").show();
+			$(".alert-warning span").text("You have to chose one checkbox at least");
+			oneDOMon(document, function(){ 
+				$(".alert-warning").hide();
+			}).oneBind();
 		}
+
 	};
 	$("input[name = 'checkbox']").on("change", function(){
 		console.log('checkbox right');
@@ -35,6 +43,7 @@ $().ready(function(){
 		});
 		if(noChoice == true){
 			$("input[name = 'checkbox']").prop('checked', true);
+			alertStatus.mustChose();
 		}
 	});
 	$("#searchBtn").on("click", function(){
@@ -42,6 +51,10 @@ $().ready(function(){
 		console.log(ChineseWords.length);
 		if(ChineseWords.length <= 0){
 			alertStatus.blankInput();
+		}else{
+			if($(".floatInputDom").data("modal") === false){
+				$(".floatInputDom").css("margin-top", "5%").data("modal", true);
+			}
 		}
 	})
 })
