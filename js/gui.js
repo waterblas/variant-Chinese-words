@@ -1,3 +1,7 @@
+global.$ = $;
+var sbar = require('search_box');
+var path = require('path');
+var shell = require('nw.gui').Shell;
 $().ready(function(){
 	var oneDOMon = function(elementName, eventFunc){
 		var eventName = "mousedown";
@@ -17,9 +21,9 @@ $().ready(function(){
 		}
 	}
 	var alertStatus = {
-		blankInput: function(){
+		checkInput: function(msg){
 			$(".alert-warning").show();
-			$(".alert-warning span").text("Better check yourself. Can't access blank input");
+			$(".alert-warning span").text(msg);
 			oneDOMon(document, function(){ 
 				$(".alert-warning").hide();
 			}).oneBind();
@@ -34,7 +38,6 @@ $().ready(function(){
 
 	};
 	$("input[name = 'checkbox']").on("change", function(){
-		console.log('checkbox right');
 		var noChoice = true;
 		$("input[name = 'checkbox']").each(function(){
 			if($(this).prop('checked') == true){
@@ -46,15 +49,19 @@ $().ready(function(){
 			alertStatus.mustChose();
 		}
 	});
-	$("#searchBtn").on("click", function(){
-		var ChineseWords = $("input[name = 'ChineseWords']").val();
-		console.log(ChineseWords.length);
-		if(ChineseWords.length <= 0){
-			alertStatus.blankInput();
-		}else{
+
+	var search = new sbar.SearchBox($('#searchBtn'));
+	search.on('navigate', function(info){
+		if(info && info.msg == "blank"){
+			alertStatus.checkInput("Better check yourself. Can't access blank input");
+		}else if(info && info.msg == "more"){
+			alertStatus.checkInput("six charaters at most");
+		}else if(info && info.status){
 			if($(".floatInputDom").data("modal") === false){
 				$(".floatInputDom").css("margin-top", "5%").data("modal", true);
 			}
+		}else{
+			window.alert("system error");
 		}
-	})
+	});
 })
