@@ -50,8 +50,8 @@ $().ready(function(){
 		}
 	});
 
-	var search = new sbar.SearchBox($('#searchBtn'));
-	search.on('navigate', function(info){
+	var hanziDb = new sbar.SearchBox($('#searchBtn'));
+	hanziDb.on('navigate', function(info){
 		if(info && info.msg == "blank"){
 			alertStatus.checkInput("Better check yourself. Can't access blank input");
 		}else if(info && info.msg == "more"){
@@ -60,6 +60,7 @@ $().ready(function(){
 			if($(".floatInputDom").data("modal") === false){
 				$(".floatInputDom").css("margin-top", "5%").data("modal", true);
 			}
+			hanziDb.extract();
 		}else{
 			window.alert("system error");
 		}
