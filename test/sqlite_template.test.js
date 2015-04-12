@@ -7,12 +7,19 @@ var con = {
 	"table": "chaizi",
 	"fields": ["id", "chaifen"],
 	"conditions": {
-		"id>": 1, 
+		"id": [1, 2 ,5], 
 		"OR":{
-			"id":"3",
+			"id":"5",
 			"chaifen":"阝可",
 		}
 	}
 }
-findChar.findOne(con);
+findChar.findOne(con, function(err, row){
+	console.log("one");
+	console.log(row);
+});
+findChar.findAll(con, function(err, row){
+	console.log("all");
+	console.log(row);
+});
 findChar.closeDb();
