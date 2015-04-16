@@ -1,5 +1,6 @@
 global.$ = $;
 var sbar = require('search_box');
+var tstream = require('text_stream');
 var path = require('path');
 var shell = require('nw.gui').Shell;
 $().ready(function(){
@@ -51,7 +52,9 @@ $().ready(function(){
 	});
 
 	var hanziDb = new sbar.SearchBox($('#searchBtn'));
+	var textStream = new tstream.TextStream($('#exampleInputFile'));
 	hanziDb.on('navigate', function(info){
+		textStream.findVariant();
 		console.log(info);
 		if(info && info.msg == "blank"){
 			alertStatus.checkInput("Better check yourself. Can't access blank input");
