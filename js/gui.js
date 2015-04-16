@@ -52,6 +52,7 @@ $().ready(function(){
 
 	var hanziDb = new sbar.SearchBox($('#searchBtn'));
 	hanziDb.on('navigate', function(info){
+		console.log(info);
 		if(info && info.msg == "blank"){
 			alertStatus.checkInput("Better check yourself. Can't access blank input");
 		}else if(info && info.msg == "more"){
@@ -64,5 +65,10 @@ $().ready(function(){
 		}else{
 			window.alert("system error");
 		}
+	});
+	hanziDb.on('dataStatus', function(status){
+		if(status.tongyin && status.xingjin && status.chaifen){
+			var formatDate = hanziDb.formatDate();
+		}	
 	});
 })
