@@ -147,9 +147,13 @@ $().ready(function(){
 	hanziDb.on('format', function(res){
 		var originInput = hanziDb.hanziOrigin;
 		textStream.findVariant(originInput, res);
+		textView.reset();
 		console.log("formatDate", res);
 	});
 	textStream.on('stream', function(path, fileData){
-
-	})
+		textView.show(path, fileData);
+	});
+	textView.on('open', function(filePath){
+		gui.Shell.openItem(filePath);
+	});
 })

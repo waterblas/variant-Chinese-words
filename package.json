@@ -1,0 +1,23 @@
+{
+  "name": "variant-words-detection",
+  "version": "0.0.1",
+  "description": "A gui system to display Chinese variant words based on node-webit",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Chinese",
+    "variant",
+    "words"
+  ],
+  "author": "waterblas",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "window": {
+    "toolbar": false,
+    "width": 660,
+    "height": 500
+  }
+}
