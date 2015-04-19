@@ -3,6 +3,7 @@ var sbar = require('search_box');
 var tstream = require('text_stream');
 var path = require('path');
 var shell = require('nw.gui').Shell;
+var async = require('async');
 $().ready(function(){
 	var oneDOMon = function(elementName, eventFunc){
 		var eventName = "mousedown";
@@ -54,7 +55,6 @@ $().ready(function(){
 	var hanziDb = new sbar.SearchBox($('#searchBtn'));
 	var textStream = new tstream.TextStream($('#exampleInputFile'));
 	hanziDb.on('navigate', function(info){
-		textStream.findVariant();
 		console.log(info);
 		if(info && info.msg == "blank"){
 			alertStatus.checkInput("Better check yourself. Can't access blank input");
@@ -71,7 +71,12 @@ $().ready(function(){
 	});
 	hanziDb.on('dataStatus', function(status){
 		if(status.tongyin && status.xingjin && status.chaifen){
-			var formatDate = hanziDb.formatDate();
+			hanziDb.formatDate();
 		}	
+	});
+	hanziDb.on('format', function(res){
+		var originInput = hanziDb.hanziOrigin;
+		textStream.findVariant(originInput, res);
+		console.log("formatDate", res);
 	});
 })
