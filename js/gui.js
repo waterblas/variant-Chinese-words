@@ -1,9 +1,78 @@
 global.$ = $;
 var sbar = require('search_box');
 var tstream = require('text_stream');
-var path = require('path');
-var shell = require('nw.gui').Shell;
-var async = require('async');
+var tBox = require('textbox_view');
+var gui = require('nw.gui');
+
+//阻止文件拖拽进窗口
+$(window).on('dragover', function (e) {
+    e.preventDefault();
+    e.originalEvent.dataTransfer.dropEffect = 'none';
+});
+$(window).on('drop', function (e) {
+    e.preventDefault();
+});
+//处理某些默认可拖拽的元素
+$(document).on('dragstart', 'a', function (e) {
+    e.preventDefault();
+});
+
+//输入框的右键菜单
+$(document).on('contextmenu', function (e) {
+    e.preventDefault();
+    var $target = $(e.target);
+    var selectionType = window.getSelection().type.toUpperCase();
+    if ($target.is(':text')) {   // TODO url/email/... 未加入判断哦
+        var clipData = gui.Clipboard.get().get();
+        menu.canPaste(clipData.length > 0);
+        menu.canCopy(selectionType === 'RANGE');
+        menu.popup(e.originalEvent.x, e.originalEvent.y);
+    }
+});
+
+var menu = new Menu();
+function Menu() {
+    this.menu = new gui.Menu();
+    this.cut = new gui.MenuItem({
+        label: '剪切',
+        click: function () {
+            document.execCommand('cut');
+        }
+    });
+
+    this.copy = new gui.MenuItem({
+        label: '复制',
+        click: function () {
+            document.execCommand('copy');
+        }
+    });
+
+    this.paste = new gui.MenuItem({
+        label: '粘贴',
+        click: function () {
+            document.execCommand('paste');
+        }
+    });
+
+    this.menu.append(this.cut);
+    this.menu.append(this.copy);
+    this.menu.append(this.paste);
+}
+
+Menu.prototype.canCopy = function (bool) {
+    this.cut.enabled = bool;
+    this.copy.enabled = bool;
+};
+
+Menu.prototype.canPaste = function (bool) {
+    this.paste.enabled = bool;
+};
+
+Menu.prototype.popup = function (x, y) {
+    this.menu.popup(x, y);
+};
+
+//界面事件
 $().ready(function(){
 	var oneDOMon = function(elementName, eventFunc){
 		var eventName = "mousedown";
@@ -54,6 +123,7 @@ $().ready(function(){
 
 	var hanziDb = new sbar.SearchBox($('#searchBtn'));
 	var textStream = new tstream.TextStream($('#exampleInputFile'));
+	var textView = new tBox.TextBox($('.table'));
 	hanziDb.on('navigate', function(info){
 		console.log(info);
 		if(info && info.msg == "blank"){
@@ -79,4 +149,7 @@ $().ready(function(){
 		textStream.findVariant(originInput, res);
 		console.log("formatDate", res);
 	});
+	textStream.on('stream', function(path, fileData){
+
+	})
 })
