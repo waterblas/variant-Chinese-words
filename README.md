@@ -3,4 +3,4 @@ There are various of Chinese characters. Some of them look similar, have the sam
 I use chinese characters feature to detect Variant words, and search Variant words about the input words in import text.
 
 ##Getting Started
-Download the [nw.js](https://github.com/nwjs/nw.js), I build in v0.10.5-x64 version.
+Download the [nw.js](https://github.com/nwjs/nw.js), I build in v0.10.5-x64 version. Then build your own [node-sqlite](https://github.com/mapbox/node-sqlite3) module, and replace the folder(./node_modules/sqlite3).
