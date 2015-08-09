@@ -1,6 +1,7 @@
 # Variant Chinese Words Detector
 There are various of Chinese characters. Some of them look similar, have the same pronunciation, or be a part of other characters, such as 云 is a part of 动, and I use Variant words to describe the words made of them.    
 I use chinese characters feature to detect Variant words, and search Variant words about the input words in import text.
+
 存在由同音字，形近字或拆分字组成的词语成为变体词，如‘啊’和‘阿’是同音字，‘发’和‘友’为形近字，‘飘’可以拆为‘票’和‘风’，变体词很多时候与原词能传达出相同的意义。首先提取出GB2312标准的6763个汉字特征，k-means聚类和系统聚类得到形近字表，结合同音字和拆分字信息，得到变体字库。本项目用node-webkit项目做了变体词的匹配识别客户端。
 
 ## Getting Started
