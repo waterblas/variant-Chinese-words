@@ -37,7 +37,7 @@ VCW.alert = function(){
 			});
 		}
 	};
-};
+}();
 
 function Menu() {
 	this.menu = new gui.Menu();
@@ -111,7 +111,7 @@ $(document).on('contextmenu', function (e) {
 $("input[name = 'checkbox']").on("change", function(){
 	var thisDom = $(this);
 	var noChoice = true;
-	$(thisDom).each(function(){
+	$("input[name = 'checkbox']").each(function(){
 		if($(this).prop('checked') == true){
 			noChoice = false;
 		}
@@ -145,7 +145,7 @@ VCW.hanziDb.on('dataStatus', function(status){
 	}
 });
 VCW.hanziDb.on('format', function(res){
-	var originInput = hanziDb.hanziOrigin;
+	var originInput = VCW.hanziDb.hanziOrigin;
 	VCW.textStream.findVariant(originInput, res);
 	VCW.textView.reset();
 	console.log("formatDate", res);
